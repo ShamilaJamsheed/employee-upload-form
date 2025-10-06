@@ -1,35 +1,37 @@
-name: Firebase Deploy
+name: Deploy to Firebase Hosting
 
-# Trigger on push to main branch
 on:
   push:
     branches:
-      - main
+      - main  # deploys whenever you push to main
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout your repository using your fork
+      # 1️⃣ Checkout repository
       - name: Checkout Repository
-        uses: ShamilaJamsheed/checkout@v3
+        uses: actions/checkout@v4
 
-      # 2️⃣ Setup Node.js using your fork
+      # 2️⃣ Setup Node.js (required if using build tools)
       - name: Setup Node.js
-        uses: ShamilaJamsheed/setup-node@v3
+        uses: actions/setup-node@v3
         with:
           node-version: 20
 
-      # 3️⃣ Install Firebase CLI
-      - name: Install Firebase CLI
-        run: npm install -g firebase-tools
+      # 3️⃣ Install dependencies and build (adjust if you have build steps)
+      - name: Install dependencies
+        run: npm install
 
-      # 4️⃣ Deploy to Firebase Hosting using your fork
+      - name: Build project
+        run: npm run build  # Make sure package.json has a "build" script
+
+      # 4️⃣ Deploy to Firebase Hosting
       - name: Deploy to Firebase Hosting
-        uses: ShamilaJamsheed/firebase-action@v1
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          args: deploy --only hosting
-        env:
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          PROJECT_ID: employee-doc-upload
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_EMPLOYEE_DOC_UPLOAD }}
+          channelId: live
+          projectId: employee-doc-upload
