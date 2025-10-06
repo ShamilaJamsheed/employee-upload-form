@@ -13,11 +13,11 @@ jobs:
     steps:
       # 1️⃣ Checkout your repository using your fork
       - name: Checkout Repository
-        uses: ShamilaJamsheed/checkout@v3
+      uses: ShamilaJamsheed/checkout@v3
 
       # 2️⃣ Setup Node.js using your fork
       - name: Setup Node.js
-        uses: ShamilaJamsheed/setup-node@v3
+       uses: ShamilaJamsheed/setup-node@v3
         with:
           node-version: 20
 
@@ -27,7 +27,7 @@ jobs:
 
       # 4️⃣ Deploy to Firebase Hosting using your fork
       - name: Deploy to Firebase Hosting
-        uses: ShamilaJamsheed/firebase-action@v1
+       uses: ShamilaJamsheed/firebase-action@v1
         with:
           args: deploy --only hosting
         env:
