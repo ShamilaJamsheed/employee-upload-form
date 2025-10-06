@@ -1,0 +1,34 @@
+name: Firebase Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout your repository (your fork)
+      - name: Checkout Repository
+        uses: ShamilaJamsheed/checkout@v3
+
+      # 2️⃣ Setup Node.js (your fork)
+      - name: Setup Node.js
+        uses: ShamilaJamsheed/setup-node@v3
+        with:
+          node-version: 20
+
+      # 3️⃣ Install Firebase CLI
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+
+      # 4️⃣ Deploy to Firebase Hosting (your fork)
+      - name: Deploy to Firebase Hosting
+        uses: ShamilaJamsheed/firebase-action@v1
+        with:
+          args: deploy --only hosting
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          PROJECT_ID: employee-doc-upload
