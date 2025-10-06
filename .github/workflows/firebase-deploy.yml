@@ -1,6 +1,6 @@
 name: Firebase Deploy
 
-# Trigger the workflow on push to main branch
+# Trigger on push to main branch
 on:
   push:
     branches:
