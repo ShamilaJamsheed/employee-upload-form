@@ -1,9 +1,10 @@
 name: Deploy to Firebase Hosting
 
+# Trigger on push to main branch
 on:
   push:
     branches:
-      - main  # deploys whenever you push to main
+      - main
 
 jobs:
   build-and-deploy:
@@ -14,18 +15,18 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Setup Node.js (required if using build tools)
+      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
 
-      # 3️⃣ Install dependencies and build (adjust if you have build steps)
+      # 3️⃣ Install dependencies and build
       - name: Install dependencies
         run: npm install
 
       - name: Build project
-        run: npm run build  # Make sure package.json has a "build" script
+        run: npm run build  # Make sure you have a "build" script in package.json
 
       # 4️⃣ Deploy to Firebase Hosting
       - name: Deploy to Firebase Hosting
